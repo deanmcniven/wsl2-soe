@@ -1,0 +1,13 @@
+---
+- name: Install AWS Tools
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install aws cli
+      become: true
+      pip:
+        name: awscli
+        state: latest
+        extra_args: --user
+      changed_when: false  #Always reports changed
+

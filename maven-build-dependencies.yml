@@ -1,0 +1,53 @@
+---
+- name: Install Dependencies for Maven Projects
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install packages
+      apt:
+        pkg:
+          - openjdk-8-jdk
+          - openjdk-11-jdk
+          - rpm
+          - maven
+        state: present
+
+- name: Create OpenJDK Switch Aliases
+  hosts: localhost
+  become: false
+  roles:
+    - set-user-facts
+  tasks:
+    - name: Create OpenJDK 8 Switch Alias
+      lineinfile:
+        path: "{{ local_user_homedir }}/.bash_aliases"
+        regexp: '^alias java-home-8=.*$'
+        line: "alias java-home-8='export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64'"
+        state: present
+        create: yes
+    - name: Create OpenJDK 11 Switch Alias
+      lineinfile:
+        path: "{{ local_user_homedir }}/.bash_aliases"
+        regexp: '^alias java-home-11=.*$'
+        line: "alias java-home-11='export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64'"
+        state: present
+        create: yes
+    - name: Create OpenJDK Clear Alias
+      lineinfile:
+        path: "{{ local_user_homedir }}/.bash_aliases"
+        regexp: '^alias java-home-clear=.*$'
+        line: "alias java-home-clear='unset JAVA_HOME'"
+        state: present
+        create: yes
+
+- name: Set default JAVA_HOME
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Set System JAVA_HOME
+      blockinfile:
+        path: "/etc/environment"
+        marker_begin: "BEGIN JAVAHOME"
+        marker_end: "END JAVAHOME"
+        block: |
+          export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64

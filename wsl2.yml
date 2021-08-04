@@ -1,0 +1,72 @@
+---
+- name: Set TMUX to launch on shell entry
+  hosts: localhost
+  become: false
+  roles:
+    - set-user-facts
+  tasks:
+    - name: Set System JAVA_HOME
+      blockinfile:
+        path: "{{ local_user_homedir }}/.bashrc"
+        marker_begin: "BEGIN TMUX EXEC"
+        marker_end: "END TMUX EXEC"
+        block: |
+          if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+            exec tmux
+          fi
+
+- name: Set wsl.conf
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Preserve UNIX file permissions on NTFS
+      blockinfile:
+        path: "/etc/wsl.conf"
+        create: true
+        marker_begin: "BEGIN FILE PERMS FIX"
+        marker_end: "END FILE PERMS FIX"
+        block: |
+          [automount]
+          enabled = true
+          root = /mnt/
+          options = "metadata,umask=22,fmask=11"
+          mountFsTab = false
+
+    - name: Disable Automatic Resolv.conf
+      blockinfile:
+        path: "/etc/wsl.conf"
+        create: true
+        marker_begin: "BEGIN RESOLV"
+        marker_end: "END RESOLV"
+        block: |
+          [network]
+          generateResolvConf = false
+
+    - name: Set ownership on wsl.conf file
+      file:
+        path: "/etc/wsl.conf"
+        owner: root
+        group: root
+        mode: '0644'
+        state: file
+
+- name: Create resolv.conf
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Create resolv.conf file (drop symlink)
+      file:
+        path: "/etc/resolv.conf"
+        owner: root
+        group: root
+        mode: '0644'
+        state: file
+
+    - name: Add Resolv entires
+      copy:
+        dest: "/etc/resolv.conf"
+        content: |
+          nameserver ***REMOVED***
+          nameserver ***REMOVED***
+          nameserver 8.8.8.8
+

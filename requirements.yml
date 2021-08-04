@@ -1,0 +1,44 @@
+- name: bash
+  src: https://github.com/deanmcniven/ansible-bash
+  version: origin/master
+
+- name: git
+  src: https://github.com/deanmcniven/ansible-git
+  version: origin/master
+
+- name: go-junit-report
+  src: https://github.com/deanmcniven/ansible-go-junit-report
+  version: origin/master
+
+- name: go-metalinter
+  src: https://github.com/deanmcniven/ansible-go-metalinter
+  version: origin/master
+
+- name: go-testsum
+  src: https://github.com/deanmcniven/ansible-go-testsum
+  version: origin/master
+
+- name: golang
+  src: https://github.com/deanmcniven/ansible-golang
+  version: origin/master
+
+- name: kubectl
+  src: https://github.com/deanmcniven/ansible-kubectl
+  version: origin/master
+
+- name: set-user-facts
+  src: https://github.com/deanmcniven/ansible-set-user-facts
+  version: origin/master
+
+- name: terraform
+  src: https://github.com/deanmcniven/ansible-terraform
+  version: origin/master
+
+- name: tmux
+  src: https://github.com/deanmcniven/ansible-tmux
+  version: origin/master
+
+- name: vim
+  src: https://github.com/deanmcniven/ansible-vim
+  version: origin/master
+

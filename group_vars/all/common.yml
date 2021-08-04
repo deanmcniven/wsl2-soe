@@ -1,0 +1,5 @@
+---
+vim_configure_note_taking_commands: true
+
+git_install_meld: false
+

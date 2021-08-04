@@ -1,0 +1,12 @@
+---
+- name: Update System
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Apt Update
+      apt: update_cache=yes
+      changed_when: false
+
+    - name: Upgrade system
+      apt: upgrade=yes
+
