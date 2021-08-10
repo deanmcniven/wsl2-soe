@@ -63,10 +63,8 @@
         state: file
 
     - name: Add Resolv entires
-      copy:
+      template:
+        src: "resolv.j2"
         dest: "/etc/resolv.conf"
-        content: |
-          nameserver ***REMOVED***
-          nameserver ***REMOVED***
-          nameserver 8.8.8.8
+        mode: '0644'
 
