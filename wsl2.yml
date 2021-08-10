@@ -15,56 +15,24 @@
             exec tmux
           fi
 
-- name: Set wsl.conf
+- name: Configure WSL2
   hosts: localhost
   become: true
   tasks:
-    - name: Preserve UNIX file permissions on NTFS
-      blockinfile:
-        path: "/etc/wsl.conf"
-        create: true
-        marker_begin: "BEGIN FILE PERMS FIX"
-        marker_end: "END FILE PERMS FIX"
-        block: |
-          [automount]
-          enabled = true
-          root = /mnt/
-          options = "metadata,umask=22,fmask=11"
-          mountFsTab = false
-
-    - name: Disable Automatic Resolv.conf
-      blockinfile:
-        path: "/etc/wsl.conf"
-        create: true
-        marker_begin: "BEGIN RESOLV"
-        marker_end: "END RESOLV"
-        block: |
-          [network]
-          generateResolvConf = false
-
-    - name: Set ownership on wsl.conf file
-      file:
-        path: "/etc/wsl.conf"
+    - name: Configure wsl.conf
+      template:
+        src: "wsl.j2"
+        dest: "/etc/wsl.conf"
         owner: root
         group: root
         mode: '0644'
-        state: file
 
-- name: Create resolv.conf
-  hosts: localhost
-  become: true
-  tasks:
-    - name: Create resolv.conf file (drop symlink)
-      file:
-        path: "/etc/resolv.conf"
-        owner: root
-        group: root
-        mode: '0644'
-        state: file
-
-    - name: Add Resolv entires
+    - name: Create a managed resolv.conf
       template:
         src: "resolv.j2"
         dest: "/etc/resolv.conf"
+        owner: root
+        group: root
         mode: '0644'
+        follow: false
 
