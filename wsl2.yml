@@ -5,7 +5,7 @@
   roles:
     - set-user-facts
   tasks:
-    - name: Set System JAVA_HOME
+    - name: Set TMUX to launch on shell entry
       blockinfile:
         path: "{{ local_user_homedir }}/.bashrc"
         marker_begin: "BEGIN TMUX EXEC"
