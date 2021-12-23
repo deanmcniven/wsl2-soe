@@ -26,6 +26,10 @@
   src: https://github.com/deanmcniven/ansible-kubectl
   version: origin/master
 
+- name: moby
+  src: https://github.com/deanmcniven/ansible-moby
+  version: origin/master
+
 - name: set-user-facts
   src: https://github.com/deanmcniven/ansible-set-user-facts
   version: origin/master
