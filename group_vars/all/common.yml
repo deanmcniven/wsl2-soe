@@ -4,3 +4,5 @@ vim_configure_note_taking_commands: true
 git_install_meld: false
 git_autocrlf: "input"
 
+docker_create_docker_conf: false
+
