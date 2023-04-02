@@ -26,7 +26,6 @@
 - name: Install Development Tools
   hosts: localhost
   roles:
-    - docker
     - git
     - golang
     - go-junit-report #Must run after golang

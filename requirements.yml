@@ -2,10 +2,6 @@
   src: https://github.com/deanmcniven/ansible-bash
   version: origin/master
 
-- name: docker
-  src: https://github.com/deanmcniven/ansible-docker
-  version: origin/master
-
 - name: git
   src: https://github.com/deanmcniven/ansible-git
   version: origin/master
