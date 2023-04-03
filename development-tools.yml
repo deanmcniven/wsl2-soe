@@ -22,6 +22,7 @@
           - tree
           - unzip
           - virtualenv
+          - x11-apps
         state: present
 
 - name: Install Development Tools
@@ -32,6 +33,7 @@
     - go-junit-report #Must run after golang
     - go-metalinter
     - go-testsum
+    - intellij-idea
     - moby
     - terraform
 

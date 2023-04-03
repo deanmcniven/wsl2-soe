@@ -22,6 +22,10 @@
   src: https://github.com/deanmcniven/ansible-golang
   version: origin/master
 
+- name: intellij-idea
+  src: https://github.com/deanmcniven/ansible-intellij-idea
+  version: origin/master
+
 - name: kubectl
   src: https://github.com/deanmcniven/ansible-kubectl
   version: origin/master
