@@ -5,6 +5,13 @@
   roles:
     - set-user-facts
   tasks:
+    - name: Set MTU on shell entry to fix office connectivity
+      blockinfile:
+        path: "{{ local_user_homedir }}/.bashrc"
+        marker_begin: "BEGIN MTU FIX"
+        marker_end: "END MTU FIX"
+        block: |
+          wsl.exe -u root ip link set dev eth0 mtu 1404
     - name: Set TMUX to launch on shell entry
       blockinfile:
         path: "{{ local_user_homedir }}/.bashrc"
